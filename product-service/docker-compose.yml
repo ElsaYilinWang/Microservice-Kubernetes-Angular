@@ -1,4 +1,4 @@
-# Docker MongoDB settings
+
   version:'4'
 services:
   mongodb:
@@ -11,4 +11,4 @@ services:
     MONGO_INITDB_ROOT_PASSWORD: password
     MONGO_INITDB_DATABASE: product-service
   volumes:
-   - ./data:/data/db # host directory:container directory
+    - ./data:/data/db # host directory:container directory
