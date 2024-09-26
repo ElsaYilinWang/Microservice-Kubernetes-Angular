@@ -24,12 +24,18 @@ public class OrderService {
     private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
     public void placeOrder(OrderRequest orderRequest) {
-        boolean inStock = inventoryClient.isInStock(orderRequest.skuCode(), orderRequest.quantity());
+        boolean inStock = inventoryClient.isInStock(
+                orderRequest.skuCode(),
+                orderRequest.quantity());
         if (inStock) {
             var order = mapToOrder(orderRequest);
             orderRepository.save(order);
             // send the message to Kafka Topic
-            var orderPlacedEvent = new OrderPlacedEvent(order.getOrderNumber(), orderRequest.userDetails().email());
+            var orderPlacedEvent = new OrderPlacedEvent(
+                    order.getOrderNumber(),
+                    orderRequest.userDetails().email(),
+                    orderRequest.userDetails().firstName(),
+                    orderRequest.userDetails().lastName());
 
             log.info("Start- Sending OrderPlacedEvent {} to Kafka Topic", orderPlacedEvent);
             kafkaTemplate.send("order-placed", orderPlacedEvent);
