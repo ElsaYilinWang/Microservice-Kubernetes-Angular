@@ -1,5 +1,5 @@
 {
-  "type": "record",
+"type": "record",
   "name": "OrderPlacedEvent",
   "namespace": "com.elsawang.microservices.order.event",
   "fields": [
