@@ -1,4 +1,4 @@
-package com.elsawang.microservices.order;
+package com.elsawang.microservices.order.event;
 
 
 import lombok.AllArgsConstructor;
@@ -12,4 +12,6 @@ public class OrderPlacedEvent {
 
     private String orderNumber;
     private String email;
+    private String firstName;
+    private String lastName;
 }
