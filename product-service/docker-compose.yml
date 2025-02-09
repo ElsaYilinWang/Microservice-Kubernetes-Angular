@@ -1,13 +1,25 @@
-   version:'4'
-  services:
-    mongodb:
-    image: mongo:7.0.5
+# Docker Compose configuration for MongoDB service
+version: '3.8'  # Using stable version of docker-compose
+
+services:
+  mongodb:
+    image: mongo:7.0.5  # Official MongoDB image
     container_name: mongodb
     ports:
-      - "27017:27017"
+      - "27017:27017"  # Expose MongoDB default port
     environment:
+      # MongoDB authentication credentials
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: product-service
     volumes:
-      - ./data:/data/db # host directory:container directory
+      - mongodb_data:/data/db  # Named volume for data persistence
+    restart: unless-stopped  # Automatically restart container unless manually stopped
+    healthcheck:  # Add health check to ensure MongoDB is running properly
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongodb_data:  # Define named volume for MongoDB data
