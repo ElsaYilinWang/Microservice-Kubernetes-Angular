@@ -2,22 +2,33 @@
   "type": "record",
   "name": "OrderPlacedEvent",
   "namespace": "com.elsawang.microservices.order.event",
+  "doc": "Event schema for when a new order is placed in the system",
   "fields": [
     {
       "name": "orderNumber",
-      "type": "string"
+      "type": "string",
+      "doc": "Unique identifier for the order",
+      "default": "",
+      "aliases": ["orderId"]
     },
     {
       "name": "email",
-      "type": "string"
+      "type": "string",
+      "doc": "Customer's email address for order notifications",
+      "default": "",
+      "logicalType": "email"
     },
     {
       "name": "firstName",
-      "type": "string"
+      "type": "string",
+      "doc": "Customer's first name",
+      "default": ""
     },
     {
       "name": "lastName",
-      "type": "string"
+      "type": "string",
+      "doc": "Customer's last name",
+      "default": ""
     }
   ]
 }
